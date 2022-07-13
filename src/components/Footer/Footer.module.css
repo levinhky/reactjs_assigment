@@ -1,0 +1,36 @@
+footer {
+  background-color: var(--black-color);
+  margin-top: 5rem;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 110.7rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7.5rem 0 4rem 0;
+  border-bottom: 0.1rem solid rgba(255, 255, 255, 0.1);
+}
+
+.item {
+  width: 26rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: auto;
+}
+
+.item h3 {
+  color: var(--white-color);
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.item ul li a {
+  color: var(--white-color);
+  font-size: 1.4rem;
+  font-weight: 300;
+}
