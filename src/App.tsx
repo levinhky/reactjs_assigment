@@ -1,13 +1,13 @@
 import DefaultLayout from "components/DefaultLayout/DefaultLayout";
 import { Route, Routes } from "react-router-dom";
-import { publicRouter } from "routes/routes";
+import { routes } from "routes/routes";
 
 function App() {
   const Layout = DefaultLayout;
 
   return (
     <Routes>
-      {publicRouter.map((route, index) => (
+      {routes.map((route, index) => (
         <Route
           key={index}
           path={route.path}

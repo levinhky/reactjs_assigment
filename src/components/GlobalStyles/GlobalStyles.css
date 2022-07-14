@@ -9,6 +9,7 @@
 :root {
   --black-color: #000;
   --white-color: #fff;
+  --snow-color: #eee;
 }
 
 * {
@@ -32,6 +33,11 @@ li {
 button {
   border: none;
   outline: none;
+  cursor: pointer;
+}
+
+img {
+  max-width: 100%;
 }
 
 body {

@@ -68,7 +68,6 @@ function Home(props) {
             delay: 2000,
             disableOnInteraction: false,
           }}
-          grabCursor={true}
           spaceBetween={0}
           slidesPerView={1}
         >

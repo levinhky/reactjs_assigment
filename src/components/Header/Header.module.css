@@ -53,6 +53,42 @@
   position: relative;
 }
 
+.dropdown {
+  position: relative;
+}
+
+.dropdown:hover .sub-menu {
+  opacity: 1;
+  visibility: visible;
+}
+
+.sub-menu {
+  position: absolute;
+  min-width: 22rem;
+  transition: all 0.2s ease-in-out;
+  margin-top: 1rem;
+  opacity: 0;
+  visibility: hidden;
+  padding-top: 0.5rem;
+  top: 1.6rem;
+  z-index: 11;
+}
+
+.sub-menu > li a {
+  text-transform: uppercase;
+  color: var(--white-color);
+  font-size: 1.3rem;
+  display: block;
+  border-bottom: solid 1px rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  padding: 1rem 1.5rem;
+  background-color: rgba(32, 32, 32, 0.85);
+}
+
+.sub-menu li:hover {
+  opacity: 0.9;
+}
+
 .cart-count {
   position: absolute;
   width: 1.8rem;
@@ -67,4 +103,53 @@
   font-size: 1.8rem;
   top: -1rem;
   right: -1rem;
+}
+
+.search-btn button {
+  background: transparent;
+  color: var(--white-color);
+  padding-top: 0.5rem;
+}
+
+.search-box form,
+.search-btn {
+  position: relative;
+}
+
+.search-box {
+  position: absolute;
+  background: var(--white-color);
+  padding: 1.5rem 2rem;
+  width: 30rem;
+  right: 0;
+  box-shadow: 0 0 0.5rem 0 rgba(102, 102, 102, 0.4);
+  margin-top: 1.5rem;
+  border-radius: 0.3rem;
+  z-index: 13;
+  display: none;
+}
+
+.search-box.active {
+  display: block;
+}
+
+.search-box form input {
+  width: 100%;
+  height: 3.8rem;
+  border: none;
+  outline: none;
+  border-radius: 0.3rem;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 0 1rem;
+}
+
+.search-box form button {
+  background: transparent;
+  border: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 1rem;
+  color: #202020;
+  font-size: 1.6rem;
 }

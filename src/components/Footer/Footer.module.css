@@ -33,4 +33,9 @@ footer {
   color: var(--white-color);
   font-size: 1.4rem;
   font-weight: 300;
+  transition: all 0.3s ease-in-out;
+}
+
+.item ul li a:hover {
+  border-bottom: 1px solid var(--white-color);
 }
