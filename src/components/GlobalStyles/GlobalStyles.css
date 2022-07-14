@@ -10,6 +10,7 @@
   --black-color: #000;
   --white-color: #fff;
   --snow-color: #eee;
+  --gray-color: var(--gray-color);
 }
 
 * {
@@ -34,6 +35,11 @@ button {
   border: none;
   outline: none;
   cursor: pointer;
+}
+
+input {
+  border: none;
+  outline: none;
 }
 
 img {

@@ -48,7 +48,7 @@ function Header(props) {
             <a href="/">Best seller</a>
           </li>
           <li>
-            <a href="/">Đăng ký / đăng nhập</a>
+            <Link to="/account/login">Đăng ký / đăng nhập</Link>
           </li>
           <li className={styles["search-btn"]}>
             <button className={`${styles["action"]} search-btn`}>

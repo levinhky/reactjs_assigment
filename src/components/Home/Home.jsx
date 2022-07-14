@@ -127,10 +127,6 @@ function Home(props) {
             </div>
           ))}
         </div>
-
-        <div className={styles["title"]}>
-          <h1 className={styles["title-heading"]}>Treat your inbox</h1>
-        </div>
       </div>
     </>
   );

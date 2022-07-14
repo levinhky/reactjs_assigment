@@ -42,7 +42,7 @@
 
 .info .desc {
   font-size: 1.4rem;
-  color: #666;
+  color: var(--gray-color);
   margin: 1rem 0 0 3rem;
 }
 
