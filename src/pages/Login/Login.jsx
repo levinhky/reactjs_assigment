@@ -21,11 +21,11 @@ function Login(props) {
           <div className={styles["form"]}>
             <form action="">
               <div className={styles["form-group"]}>
-                <i class="bx bxs-envelope"></i>
+                <i className="bx bxs-envelope"></i>
                 <input type="email" placeholder="Email của bạn" />
               </div>
               <div className={styles["form-group"]}>
-                <i class="bx bxs-lock"></i>
+                <i className="bx bxs-lock"></i>
                 <input type="text" placeholder="Nhập mật khẩu" />
               </div>
               <div
@@ -44,15 +44,15 @@ function Login(props) {
           <div className={styles["form"]}>
             <form action="">
               <div className={styles["form-group"]}>
-                <i class="bx bxs-user"></i>
+                <i className="bx bxs-user"></i>
                 <input type="text" placeholder="Họ tên " />
               </div>
               <div className={styles["form-group"]}>
-                <i class="bx bxs-envelope"></i>
+                <i className="bx bxs-envelope"></i>
                 <input type="email" placeholder="Email " />
               </div>
               <div className={styles["form-group"]}>
-                <i class="bx bxs-lock"></i>
+                <i className="bx bxs-lock"></i>
                 <input type="text" placeholder="Mật khẩu" />
               </div>
               <div

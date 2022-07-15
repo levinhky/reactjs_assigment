@@ -25,7 +25,7 @@ function Header(props) {
         </Link>
         <ul className={styles["menu"]}>
           <li>
-            <a href="/">New Arrivals</a>
+            <Link to="/collections/new-arrivals">New Arrivals</Link>
           </li>
           <li className={styles["dropdown"]}>
             <Link to="/collections/all">Products</Link>
@@ -45,7 +45,7 @@ function Header(props) {
             </ul>
           </li>
           <li>
-            <a href="/">Best seller</a>
+            <Link to="/collections/hot-products">Best seller</Link>
           </li>
           <li>
             <Link to="/account/login">Đăng ký / đăng nhập</Link>

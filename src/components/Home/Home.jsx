@@ -6,6 +6,7 @@ import "swiper/css/autoplay";
 import "swiper/css/lazy";
 
 import styles from "./Home.module.css";
+import { Link } from "react-router-dom";
 
 function Home(props) {
   const arrivals = [
@@ -113,9 +114,9 @@ function Home(props) {
         <div className={styles["arrivals"]}>
           {arrivals.map((arrival) => (
             <div className={styles["item"]} key={arrival.id}>
-              <a href="/" className={styles["image"]}>
+              <Link to={`/products/${arrival.id}`} className={styles["image"]}>
                 <img src={arrival.src} alt="product" />
-              </a>
+              </Link>
               <div className={styles["info"]}>
                 <h2 className={styles["name"]}>
                   <a href="/">Yeen Yeen</a>
