@@ -64,10 +64,13 @@ function Header(props) {
             </div>
           </li>
           <li>
-            <a className={`${styles["action"]} ${styles["cart"]}`} href="/">
+            <Link
+              className={`${styles["action"]} ${styles["cart"]}`}
+              to="/cart"
+            >
               <i className="bx bx-cart"></i>
               <span className={styles["cart-count"]}>0</span>
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
