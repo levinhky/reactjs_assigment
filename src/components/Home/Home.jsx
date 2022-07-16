@@ -118,8 +118,10 @@ function Home(props) {
                 <img src={arrival.src} alt="product" />
               </Link>
               <div className={styles["info"]}>
-                <h2 className={styles["name"]}>
-                  <a href="/">Yeen Yeen</a>
+                <h2>
+                  <a href="/" className={styles["name"]}>
+                    Yeen Yeen
+                  </a>
                 </h2>
                 <div className={styles["price"]}>
                   <span>590,000₫</span>

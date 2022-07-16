@@ -72,6 +72,7 @@ tbody tr:nth-child(2) td:first-child {
 .product .info {
   margin-left: 2rem;
   margin-top: 3rem;
+  color: var(--black-color);
 }
 
 .product .info h4 {
@@ -173,4 +174,8 @@ textarea {
 textarea:focus-within {
   border-color: #3399ff;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 0.8rem 2rem;
+}
+
+.item td:last-child span {
+  cursor: pointer;
 }

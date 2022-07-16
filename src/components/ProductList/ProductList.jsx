@@ -59,8 +59,10 @@ function ProductList(props) {
               <img src={product.src} alt="product" />
             </Link>
             <div className={styles["info"]}>
-              <h2 className={styles["name"]}>
-                <a href="/">Yeen Yeen</a>
+              <h2>
+                <Link to={`/products/${product.id}`} className={styles["name"]}>
+                  Yeen Yeen
+                </Link>
               </h2>
               <div className={styles["price"]}>
                 <span>590,000₫</span>
