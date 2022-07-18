@@ -7,41 +7,11 @@ import "swiper/css/lazy";
 
 import styles from "./Home.module.css";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axiosClient from "configs/api";
+import { vnd } from "configs/functions";
 
 function Home(props) {
-  const arrivals = [
-    {
-      id: 1,
-      src: "https://product.hstatic.net/1000370235/product/img_2775_c36eb92deb1243e0936cccc9ff92d0cd_grande.jpg",
-      alt: "product",
-      name: "Yeen Yeen",
-      price: 250702,
-    },
-    {
-      id: 2,
-      src: "https://product.hstatic.net/1000370235/product/img_0032_d96ba523f20c44cbad0495462a14fc93_grande.jpg",
-      alt: "product",
-      name: "Yeen Yeen",
-      price: 250702,
-    },
-    {
-      id: 3,
-      src: "https://product.hstatic.net/1000370235/product/img_0032_d96ba523f20c44cbad0495462a14fc93_grande.jpg",
-      alt: "product",
-      name: "Yeen Yeen",
-      price: 250702,
-    },
-    {
-      id: 4,
-      src: "https://product.hstatic.net/1000370235/product/img_0032_d96ba523f20c44cbad0495462a14fc93_grande.jpg",
-      alt: "product",
-      name: "Yeen Yeen",
-      price: 250702,
-    },
-  ];
-
-  SwiperCore.use([Autoplay, Navigation]);
-
   const slides = [
     {
       id: 1,
@@ -59,6 +29,20 @@ function Home(props) {
       alt: "slide_3",
     },
   ];
+
+  const [arrivals, setArrivals] = useState([]);
+
+  SwiperCore.use([Autoplay, Navigation]);
+
+  useEffect(() => {
+    const getArrivals = async () => {
+      const res = await axiosClient.get("products", { params: { _limit: 6 } });
+      setArrivals(res.data);
+    };
+
+    getArrivals();
+  }, []);
+
   return (
     <>
       <div className={styles["carousel"]}>
@@ -115,16 +99,16 @@ function Home(props) {
           {arrivals.map((arrival) => (
             <div className={styles["item"]} key={arrival.id}>
               <Link to={`/products/${arrival.id}`} className={styles["image"]}>
-                <img src={arrival.src} alt="product" />
+                <img src={arrival.thumbnail} alt="product" />
               </Link>
               <div className={styles["info"]}>
                 <h2>
                   <a href="/" className={styles["name"]}>
-                    Yeen Yeen
+                    {arrival.name}
                   </a>
                 </h2>
                 <div className={styles["price"]}>
-                  <span>590,000₫</span>
+                  <span>{vnd(arrival.price)}</span>
                 </div>
               </div>
             </div>

@@ -1,3 +1,4 @@
+import { vnd } from "configs/functions";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./ProductList.module.css";
@@ -56,16 +57,16 @@ function ProductList(props) {
         {products.map((product) => (
           <div className={styles["item"]} key={product.id}>
             <Link to={`/products/${product.id}`} className={styles["image"]}>
-              <img src={product.src} alt="product" />
+              <img src={product.thumbnail} alt="product" />
             </Link>
             <div className={styles["info"]}>
               <h2>
                 <Link to={`/products/${product.id}`} className={styles["name"]}>
-                  Yeen Yeen
+                  {product.name}
                 </Link>
               </h2>
               <div className={styles["price"]}>
-                <span>590,000₫</span>
+                <span>{vnd(product.price)}</span>
               </div>
             </div>
           </div>
