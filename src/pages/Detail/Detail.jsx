@@ -1,15 +1,24 @@
 import axiosClient from "configs/api";
 import { vnd } from "configs/functions";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { addToCart, caculateTotal } from "slices/cartSlice";
 import styles from "./Detail.module.css";
 
 function Detail(props) {
   const { id } = useParams();
 
   const [productDetail, setProductDetail] = useState({});
-  const [quantity, setQuantity] = useState(1);
+
+  const dispath = useDispatch();
+
+  const { cartItems } = useSelector((state) => state.cart);
+
+  useEffect(() => {
+    dispath(caculateTotal());
+  }, [cartItems]);
 
   useEffect(() => {
     const getProductDetail = async () => {
@@ -17,29 +26,19 @@ function Detail(props) {
       setProductDetail(data[0]);
     };
 
+    getProductDetail();
+  }, [id]);
+
+  useEffect(() => {
     window.scroll({
       top: 0,
       left: 0,
       behavior: "smooth",
     });
-
-    getProductDetail();
-  }, [id]);
+  }, []);
 
   const addSuccess = () => {
     toast.success("Thêm vào giỏ hàng thành công!", {
-      position: "top-right",
-      autoClose: 300,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  };
-
-  const quantityError = () => {
-    toast.warning("Phải có ít nhất 1 sản phẩm!", {
       position: "top-right",
       autoClose: 300,
       hideProgressBar: false,
@@ -72,29 +71,19 @@ function Detail(props) {
             </div>
             <div className={styles["action"]}>
               <form>
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (quantity > 1) {
-                      setQuantity(quantity - 1);
-                    } else {
-                      quantityError();
-                    }
-                  }}
-                >
-                  -
-                </button>
-                <input
-                  type="text"
-                  value={quantity}
-                  onChange={(e) => setQuantity(e.target.value)}
-                />
-                <button type="button" onClick={() => setQuantity(quantity + 1)}>
-                  +
-                </button>
+                <button type="button">-</button>
+                <input type="text" defaultValue={1} />
+                <button type="button">+</button>
               </form>
               <div className={styles["add-cart"]}>
-                <button onClick={addSuccess}>Thêm vào giỏ</button>
+                <button
+                  onClick={() => {
+                    dispath(addToCart(productDetail));
+                    addSuccess();
+                  }}
+                >
+                  Thêm vào giỏ
+                </button>
               </div>
             </div>
             <div className={styles["addtion"]}>

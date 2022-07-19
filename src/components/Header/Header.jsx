@@ -1,11 +1,14 @@
 import axiosClient from "configs/api";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
 
 function Header(props) {
   const [categories, setCategories] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+
+  const { cartItems } = useSelector((state) => state.cart);
 
   // api
   useEffect(() => {
@@ -73,7 +76,7 @@ function Header(props) {
               to="/cart"
             >
               <i className="bx bx-cart"></i>
-              <span className={styles["cart-count"]}>0</span>
+              <span className={styles["cart-count"]}>{cartItems.length}</span>
             </Link>
           </li>
         </ul>
