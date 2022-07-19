@@ -9,7 +9,7 @@ const Detail = React.lazy(() => import("pages/Detail/Detail"));
 export const routes = [
   { path: '', element: <Home /> },
   { path: "products/:id", element: <Detail /> },
-  { path: "collections/all", element: <ProductGrid /> },
+  { path: "collections/:category", element: <ProductGrid /> },
   { path: "account/login", element: <Login /> },
   { path: "cart", element: <Cart /> },
 ]

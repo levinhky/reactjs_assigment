@@ -1,17 +1,29 @@
-import { useEffect } from "react";
+import axiosClient from "configs/api";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
 
 function Header(props) {
+  const [categories, setCategories] = useState([]);
+
+  // events
   useEffect(() => {
     const searchBtn = document.querySelector(".search-btn");
     const searchBox = document.querySelector(".search-box");
 
-    const toggleSearch = () => {
-      searchBox.classList.toggle(`${styles["active"]}`);
-    };
+    const toggleSearch = () => searchBox.classList.add(`${styles["active"]}`);
 
     searchBtn.addEventListener("click", toggleSearch);
+  }, []);
+
+  // api
+  useEffect(() => {
+    const getCategories = async () => {
+      const data = await axiosClient.get("categories");
+      setCategories(data);
+    };
+
+    getCategories();
   }, []);
 
   return (
@@ -30,18 +42,14 @@ function Header(props) {
           <li className={styles["dropdown"]}>
             <Link to="/collections/all">Products</Link>
             <ul className={styles["sub-menu"]}>
-              <li>
-                <a href="/">Áo</a>
-              </li>
-              <li>
-                <a href="/">Váy</a>
-              </li>
-              <li>
-                <a href="/">Quần</a>
-              </li>
-              <li>
-                <a href="/">Đầm</a>
-              </li>
+              {categories &&
+                categories.map((category) => (
+                  <li key={category.id}>
+                    <Link to={`/collections/${category.id}`}>
+                      {category.name}
+                    </Link>
+                  </li>
+                ))}
             </ul>
           </li>
           <li>

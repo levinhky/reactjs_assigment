@@ -17,6 +17,10 @@
   position: relative;
 }
 
+.info h2 {
+  text-transform: capitalize;
+}
+
 .info h2::after {
   content: "";
   display: block;
