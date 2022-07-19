@@ -2,12 +2,14 @@ import axiosClient from "configs/api";
 import { vnd } from "configs/functions";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import styles from "./Detail.module.css";
 
 function Detail(props) {
   const { id } = useParams();
 
   const [productDetail, setProductDetail] = useState({});
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     const getProductDetail = async () => {
@@ -23,6 +25,31 @@ function Detail(props) {
 
     getProductDetail();
   }, [id]);
+
+  const addSuccess = () => {
+    toast.success("Thêm vào giỏ hàng thành công!", {
+      position: "top-right",
+      autoClose: 300,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
+  const quantityError = () => {
+    toast.warning("Phải có ít nhất 1 sản phẩm!", {
+      position: "top-right",
+      autoClose: 300,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
   return (
     <>
       {productDetail && (
@@ -45,12 +72,29 @@ function Detail(props) {
             </div>
             <div className={styles["action"]}>
               <form>
-                <button>-</button>
-                <input type="text" defaultValue={1} />
-                <button>+</button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (quantity > 1) {
+                      setQuantity(quantity - 1);
+                    } else {
+                      quantityError();
+                    }
+                  }}
+                >
+                  -
+                </button>
+                <input
+                  type="text"
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value)}
+                />
+                <button type="button" onClick={() => setQuantity(quantity + 1)}>
+                  +
+                </button>
               </form>
               <div className={styles["add-cart"]}>
-                <a href="/">Thêm vào giỏ</a>
+                <button onClick={addSuccess}>Thêm vào giỏ</button>
               </div>
             </div>
             <div className={styles["addtion"]}>

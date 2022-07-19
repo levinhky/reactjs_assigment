@@ -66,24 +66,24 @@ function Home(props) {
       <div className={styles["container"]}>
         <div className={styles["model"]}>
           <div className={styles["item"]}>
-            <a href="/">
+            <Link to="/collections/2">
               <img
                 src="https://theme.hstatic.net/1000370235/1000472578/14/xxx_4.jpg?v=837"
                 alt="tops"
               />
-            </a>
+            </Link>
             <div className={styles["caption"]}>
               <h3>Tops</h3>
               <p>Mua Ngay</p>
             </div>
           </div>
           <div className={styles["item"]}>
-            <a href="/">
+            <Link to="/collections/1">
               <img
                 src="https://theme.hstatic.net/1000370235/1000472578/14/xxx_5.jpg?v=837"
                 alt="tops"
               />
-            </a>
+            </Link>
             <div className={styles["caption"]}>
               <h3>Desses</h3>
               <p>Mua Ngay</p>

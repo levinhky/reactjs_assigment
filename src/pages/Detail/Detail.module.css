@@ -72,7 +72,7 @@
   font-size: 1.8rem;
 }
 
-.action .add-cart a {
+.action .add-cart button {
   font-size: 1.2rem;
   color: var(--white-color);
   padding: 0 3rem;

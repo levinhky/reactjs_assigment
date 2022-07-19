@@ -1,13 +1,18 @@
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import styles from "./Cart.module.css";
 
 function Cart(props) {
+  console.log(useSelector((state) => state));
+  const [quantity, setQuantity] = useState(1);
   return (
     <div className={styles["wrapper"]}>
       <div className={styles["title"]}>
         <h1 className={styles["title-heading"]}>Giỏ hàng</h1>
       </div>
 
-      <div className={styles["cart"]}>
+      {/* <div className={styles["cart"]}>
         <div className={styles["left"]}>
           <div className={styles["items"]}>
             <table>
@@ -39,12 +44,25 @@ function Cart(props) {
                         type="button"
                         value="<"
                         className={styles["qtyminus"]}
+                        onClick={() => {
+                          if (quantity > 1) {
+                            setQuantity(quantity - 1);
+                          } else {
+                            return;
+                          }
+                        }}
                       />
-                      <input type="text" name="quantity" defaultValue={1} />
+                      <input
+                        type="text"
+                        name="quantity"
+                        value={quantity}
+                        onChange={(e) => setQuantity(e.target.value)}
+                      />
                       <input
                         type="button"
                         value=">"
                         className={styles["qtyplus"]}
+                        onClick={() => setQuantity(quantity + 1)}
                       />
                     </div>
                   </td>
@@ -120,6 +138,18 @@ function Cart(props) {
               </div>
             </div>
           </div>
+        </div>
+      </div> */}
+      <div className={styles["empty-cart"]}>
+        <div>
+          <img
+            src="https://theme.hstatic.net/1000370235/1000472578/14/empty_cart.png?v=837"
+            alt="empty_cart"
+          />
+        </div>
+        <p>Không có sản phẩm nào trong giỏ hàng của bạn!</p>
+        <div className={styles["continue-btn"]}>
+          <Link to="/collections/all">Tiếp tục mua hàng</Link>
         </div>
       </div>
     </div>

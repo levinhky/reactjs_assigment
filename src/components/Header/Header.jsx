@@ -5,16 +5,7 @@ import styles from "./Header.module.css";
 
 function Header(props) {
   const [categories, setCategories] = useState([]);
-
-  // events
-  useEffect(() => {
-    const searchBtn = document.querySelector(".search-btn");
-    const searchBox = document.querySelector(".search-box");
-
-    const toggleSearch = () => searchBox.classList.add(`${styles["active"]}`);
-
-    searchBtn.addEventListener("click", toggleSearch);
-  }, []);
+  const [isOpen, setIsOpen] = useState(false);
 
   // api
   useEffect(() => {
@@ -59,17 +50,22 @@ function Header(props) {
             <Link to="/account/login">Đăng ký / đăng nhập</Link>
           </li>
           <li className={styles["search-btn"]}>
-            <button className={`${styles["action"]} search-btn`}>
+            <button
+              className={`${styles["action"]} search-btn`}
+              onClick={() => setIsOpen(!isOpen)}
+            >
               <i className="bx bx-search"></i>
             </button>
-            <div className={`${styles["search-box"]} search-box`}>
-              <form>
-                <input type="text" placeholder="Tìm kiếm..." />
-                <button>
-                  <i className="bx bx-search"></i>
-                </button>
-              </form>
-            </div>
+            {isOpen && (
+              <div className={`${styles["search-box"]} search-box`}>
+                <form>
+                  <input type="text" placeholder="Tìm kiếm..." />
+                  <button>
+                    <i className="bx bx-search"></i>
+                  </button>
+                </form>
+              </div>
+            )}
           </li>
           <li>
             <Link
