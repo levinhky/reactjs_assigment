@@ -61,12 +61,12 @@ function Header(props) {
             </button>
             {isOpen && (
               <div className={`${styles["search-box"]} search-box`}>
-                <form>
+                <div className={`${styles["form"]}`}>
                   <input type="text" placeholder="Tìm kiếm..." />
-                  <button>
+                  <Link to={`collections/all`}>
                     <i className="bx bx-search"></i>
-                  </button>
-                </form>
+                  </Link>
+                </div>
               </div>
             )}
           </li>

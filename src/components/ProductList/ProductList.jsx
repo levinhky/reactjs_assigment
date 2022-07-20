@@ -1,10 +1,16 @@
+import axiosClient from "configs/api";
 import { vnd } from "configs/functions";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./ProductList.module.css";
 
 function ProductList(props) {
-  const { products, isNav } = props;
+  const { products, isNav, setProductList, page, limit } = props;
+  const { pathname, search } = useLocation();
+  const navigate = useNavigate();
+  const sortParam = new URLSearchParams(search).get("sort");
+  const orderParam = new URLSearchParams(search).get("order");
+
   useEffect(() => {
     const filter = document.querySelector(".current");
     const filterSelect = document.querySelector(".select");
@@ -21,7 +27,10 @@ function ProductList(props) {
     filter.addEventListener("click", openSelect);
 
     options.forEach((option) => {
-      option.addEventListener("click", closeSelect);
+      option.addEventListener("click", () => {
+        closeSelect();
+        filter.innerHTML = option.getAttribute("text");
+      });
     });
 
     return () => {
@@ -31,6 +40,24 @@ function ProductList(props) {
       });
     };
   }, []);
+
+  useEffect(() => {
+    if (search.length > 0) {
+      const getFilterProducts = async () => {
+        const data = await axiosClient.get("products", {
+          params: {
+            _page: page,
+            _limit: limit,
+            _sort: sortParam,
+            _order: orderParam,
+          },
+        });
+        setProductList(data.data);
+      };
+
+      getFilterProducts();
+    }
+  }, [orderParam, sortParam, search]);
 
   return (
     <>
@@ -43,11 +70,41 @@ function ProductList(props) {
               Sản phẩm nổi bật
             </span>
             <ul className={`${styles["filter-select"]} select`}>
-              <li className={`${styles["option"]} option`}>Sản phẩm nổi bật</li>
-              <li className={`${styles["option"]} option`}>Giá : Tăng dần</li>
-              <li className={`${styles["option"]} option`}>Giá : Giảm dần</li>
-              <li className={`${styles["option"]} option`}>Tên : A-Z</li>
-              <li className={`${styles["option"]} option`}>Tên : Z-A</li>
+              <li
+                onClick={() => navigate(`${pathname}?sort=id&order=asc`)}
+                className={`${styles["option"]} option`}
+                text="Sản phẩm nổi bật"
+              >
+                Sản phẩm nổi bật
+              </li>
+              <li
+                onClick={() => navigate(`${pathname}?sort=price&order=asc`)}
+                className={`${styles["option"]} option`}
+                text="Giá : Tăng dần"
+              >
+                Giá : Tăng dần
+              </li>
+              <li
+                onClick={() => navigate(`${pathname}?sort=price&order=desc`)}
+                className={`${styles["option"]} option`}
+                text="Giá : Giảm dần"
+              >
+                Giá : Giảm dần
+              </li>
+              <li
+                onClick={() => navigate(`${pathname}?sort=name&order=asc`)}
+                className={`${styles["option"]} option`}
+                text="Tên : A-Z"
+              >
+                Tên : A-Z
+              </li>
+              <li
+                onClick={() => navigate(`${pathname}?sort=name&order=desc`)}
+                className={`${styles["option"]} option`}
+                text="Tên : Z-A"
+              >
+                Tên : Z-A
+              </li>
             </ul>
           </div>
         </nav>

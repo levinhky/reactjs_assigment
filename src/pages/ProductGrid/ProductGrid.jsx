@@ -6,54 +6,69 @@ import styles from "./ProductGrid.module.css";
 
 function ProductGrid(props) {
   const [productList, setProductList] = useState([]);
+  const [limit, setLimit] = useState(8);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(null);
 
   const { category } = useParams();
+
+  const pageNumbers = Array.from({ length: totalPages }, (v, i) => i + 1);
 
   useEffect(() => {
     const getProductList = async () => {
       let data = null;
       if (category === "all") {
-        data = await axiosClient.get("products");
+        data = await axiosClient.get("products", {
+          params: { _page: page, _limit: limit },
+        });
       } else if (category === "new-arrivals") {
         data = await axiosClient.get("products", {
-          params: { _sort: "name", _order: "asc" },
+          params: { _page: page, _limit: limit, _sort: "name", _order: "asc" },
         });
       } else if (category === "hot-products") {
         data = await axiosClient.get("products", {
-          params: { q: "hot-product" },
+          params: { _page: page, _limit: limit, q: "hot-product" },
         });
       } else {
         data = await axiosClient.get("products", {
-          params: { category_id: +category },
+          params: { _page: page, _limit: limit, category_id: +category },
         });
       }
-      setProductList(data);
+
+      setTotalPages(Math.ceil(data.pagination._totalRows / limit));
+      setProductList(data.data);
     };
 
     getProductList();
-  }, [category]);
-
-  const paginations = [
-    {
-      value: 1,
-    },
-    {
-      value: 2,
-    },
-    {
-      value: 3,
-    },
-  ];
+  }, [category, limit, page]);
 
   return (
     <div className={styles["wrapper"]}>
-      <ProductList products={productList} isNav={true} />
+      <ProductList
+        products={productList}
+        isNav={true}
+        page={page}
+        limit={limit}
+        setProductList={setProductList}
+      />
 
       <div className={styles["product-pagination"]}>
         <ul>
-          {paginations.map((pagination, index) => (
+          {pageNumbers.map((number, index) => (
             <li key={index}>
-              <a href="/">{pagination.value}</a>
+              <button
+                className={number === page ? styles["active"] : ""}
+                onClick={() => {
+                  setPage(number);
+                  window.scroll({
+                    top: 0,
+                    left: 0,
+                    behavior: "smooth",
+                  });
+                }}
+              >
+                {number}
+              </button>
             </li>
           ))}
         </ul>

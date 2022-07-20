@@ -134,7 +134,7 @@
   display: block;
 }
 
-.search-box form input {
+.search-box .form input {
   width: 100%;
   height: 3.8rem;
   border: none;
@@ -144,10 +144,13 @@
   padding: 0 1rem;
 }
 
-.search-box form button {
+.search-box .form a {
   background: transparent;
   border: none;
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   top: 0;
   bottom: 0;
   right: 1rem;
