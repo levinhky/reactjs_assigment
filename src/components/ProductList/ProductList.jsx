@@ -128,6 +128,7 @@ function ProductList(props) {
             </div>
           </div>
         ))}
+        {products.length === 0 && <p>Không có sản phẩm!</p>}
       </div>
     </>
   );

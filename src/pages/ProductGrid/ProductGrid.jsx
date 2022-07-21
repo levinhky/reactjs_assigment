@@ -1,7 +1,7 @@
 import ProductList from "components/ProductList/ProductList";
 import axiosClient from "configs/api";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import styles from "./ProductGrid.module.css";
 
 function ProductGrid(props) {
@@ -10,28 +10,42 @@ function ProductGrid(props) {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(null);
 
+  const { search } = useLocation();
   const { category } = useParams();
 
   const pageNumbers = Array.from({ length: totalPages }, (v, i) => i + 1);
+  const searchValue = new URLSearchParams(search).get("q");
+  console.log(searchValue);
 
   useEffect(() => {
     const getProductList = async () => {
       let data = null;
-      if (category === "all") {
-        data = await axiosClient.get("products", {
-          params: { _page: page, _limit: limit },
-        });
-      } else if (category === "new-arrivals") {
-        data = await axiosClient.get("products", {
-          params: { _page: page, _limit: limit, _sort: "name", _order: "asc" },
-        });
-      } else if (category === "hot-products") {
-        data = await axiosClient.get("products", {
-          params: { _page: page, _limit: limit, q: "hot-product" },
-        });
+      if (!searchValue) {
+        if (category === "all") {
+          data = await axiosClient.get("products", {
+            params: { _page: page, _limit: limit },
+          });
+        } else if (category === "new-arrivals") {
+          data = await axiosClient.get("products", {
+            params: {
+              _page: page,
+              _limit: limit,
+              _sort: "name",
+              _order: "asc",
+            },
+          });
+        } else if (category === "hot-products") {
+          data = await axiosClient.get("products", {
+            params: { _page: page, _limit: limit, q: "hot-product" },
+          });
+        } else {
+          data = await axiosClient.get("products", {
+            params: { _page: page, _limit: limit, category_id: +category },
+          });
+        }
       } else {
         data = await axiosClient.get("products", {
-          params: { _page: page, _limit: limit, category_id: +category },
+          params: { _page: page, _limit: limit, q: searchValue },
         });
       }
 
@@ -40,7 +54,7 @@ function ProductGrid(props) {
     };
 
     getProductList();
-  }, [category, limit, page]);
+  }, [category, limit, page, searchValue]);
 
   return (
     <div className={styles["wrapper"]}>

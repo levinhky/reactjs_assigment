@@ -4,9 +4,10 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
 
-function Header(props) {
+function Header() {
   const [categories, setCategories] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
 
   const { cartItems } = useSelector((state) => state.cart);
 
@@ -62,8 +63,19 @@ function Header(props) {
             {isOpen && (
               <div className={`${styles["search-box"]} search-box`}>
                 <div className={`${styles["form"]}`}>
-                  <input type="text" placeholder="Tìm kiếm..." />
-                  <Link to={`collections/all`}>
+                  <input
+                    type="text"
+                    placeholder="Tìm kiếm..."
+                    value={searchValue}
+                    onChange={(e) => setSearchValue(e.target.value)}
+                  />
+                  <Link
+                    to={`/collections/all/?q=${searchValue}`}
+                    onClick={() => {
+                      setSearchValue("");
+                      setIsOpen(false);
+                    }}
+                  >
                     <i className="bx bx-search"></i>
                   </Link>
                 </div>
